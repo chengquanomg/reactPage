@@ -5,10 +5,10 @@ import Login from './Login/index';
 import Home from './Home/index'
 import List from './List/index'
 import { Router, Route } from 'react-router';
-import {createBrowserHistory} from 'history';
+import {createBrowserHistory, createHashHistory} from 'history';
 import * as serviceWorker from './serviceWorker';
 
-const browserHistory = createBrowserHistory()
+const browserHistory = createHashHistory()
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route exact path="/" component={Login}/>

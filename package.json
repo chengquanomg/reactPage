@@ -2,6 +2,7 @@
   "name": "page",
   "version": "0.1.0",
   "private": true,
+  "homepage":"./",
   "dependencies": {
     "mockjs": "^1.0.1-beta3",
     "react": "^16.9.0",
