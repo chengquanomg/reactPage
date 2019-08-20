@@ -20,63 +20,28 @@ class List extends Component{
       message : '',
       pageSize : 4,
       currentPage: 1,
-      inputValue: '',
       focused: false,
     };
-    this.onPageNumClick = this.onPageNumClick.bind(this);
-    this.onLastPageClick = this.onLastPageClick.bind(this);
-    this.onNextPageClick = this.onNextPageClick.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
+    this.onCurrentChange = this.onCurrentChange.bind(this);
+    this.onMessageChange = this.onMessageChange.bind(this);
     this.onInputFocus = this.onInputFocus.bind(this);
     this.onInputBlur = this.onInputBlur.bind(this);
   }
 
-  //切换数据分页
-  onPageNumClick(num){
-    this.setState({
-      currentPage: num,
-    })
-  }
-
-  //上一页
-  onLastPageClick(e){
-    const currentPage = this.state.currentPage===1 ? this.state.currentPage : this.state.currentPage - 1;
+  //翻页功能,更新currentPage
+  onCurrentChange(currentPage) {
     this.setState({
       currentPage,
     })
   }
 
-  //下一页
-  onNextPageClick() {
-    const {pageSize, messages} = this.state;
-    const currentPage = this.state.currentPage===Math.ceil(messages.length/pageSize) ? this.state.currentPage : this.state.currentPage + 1;
+  //搜索框内容改变,更新message
+  onMessageChange(message) {
     this.setState({
-      currentPage,
-    })
-  }
-
-  //搜索功能
-  onInputChange(e) {
-    const val = e.target.value;
-    const messages = [...this.state.messages];
-    let message = [];
-    messages.forEach((item)=>{
-      if(item.System.toLowerCase().includes(val)) {
-        message.push(item);
-      }
-      else if(item.Version.toLowerCase().includes(val)) {
-        message.push(item);
-      }
-      else if(item.Browser.toLowerCase().includes(val)) {
-        message.push(item);
-      }
-    })
-    this.setState({
-      inputValue: val,
       message,
-      currentPage: 1,
     })
   }
+  
 
   //样式
   onInputFocus() {
@@ -126,19 +91,19 @@ class List extends Component{
       <Fragment>
         <Input 
           focused = {this.state.focused}
-          inputValue = {this.state.inputValue}
-          onInputChange = {this.onInputChange}
+          messages = {this.state.messages}
+          onCurrentChange = {this.onCurrentChange}
+          onMessageChange = {this.onMessageChange}
           onInputFocus = {this.onInputFocus}
           onInputBlur = {this.onInputBlur}
         />
         <TotalList 
+          messages = {this.state.messages}
           message = {message}
           pageSize = {pageSize}
           currentPage = {currentPage}
           pageNumList = {pageNumList}
-          onLastPageClick = {this.onLastPageClick}
-          onPageNumClick = {this.onPageNumClick}
-          onNextPageClick = {this.onNextPageClick}
+          onCurrentChange = {this.onCurrentChange}
         />
       </Fragment>
     )
