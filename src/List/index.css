@@ -1,0 +1,138 @@
+li{
+  list-style-type: none;
+}
+a{
+  text-decoration: none;
+}
+
+.put-in {
+  width: 20%;
+  background-color: #fff;
+  height: 34px;
+  border: 1px solid #e5e5e5;
+  margin: 20px auto;
+  padding-left: 10px;
+}
+.focus{
+  border-color: #73afea;
+  box-shadow: 0 0 4px rgba(115,180,234,0.4);
+}
+.search {
+  min-width: 340px;
+  height: 32px;
+  border-style: none;
+}
+.search:focus {
+  border-color: transparent;
+  box-shadow: none;
+  outline: none;
+}
+.icon{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  padding: 2px;
+  /* 不可选中 */
+  -webkit-user-select: none;  /* Chrome all / Safari all /opera15+*/ 
+  -moz-user-select: none;     /* Firefox all */  
+  -ms-user-select: none;      /* IE 10+ */ 
+  user-select: none;          /* 通用 */
+}
+/* .icon:hover{
+  cursor: pointer;
+  background-color: #DDD;
+  border-radius: 4px;
+} */
+.icon-search{
+  display: inline-block;
+  margin: 4px;
+}
+.pageNum{
+  width: 500px;
+  margin: 3px auto;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  
+   /* 不可选中 */
+   -webkit-user-select: none;  /* Chrome all / Safari all /opera15+*/ 
+   -moz-user-select: none;     /* Firefox all */  
+   -ms-user-select: none;      /* IE 10+ */ 
+   user-select: none;          /* 通用 */
+}
+
+.numList{
+  display: flex;
+  padding: 0px;
+  margin: 10px 2px;
+}
+.lastPage, .nextPage{
+  width: 31px;
+  height: 31px;
+  background-color: #f3f4f8;
+  border: 1px solid #e5e5e5;
+  border-radius: 3px;
+}
+.lastPage:hover, .nextPage:hover{
+  cursor: pointer;
+  background-color: #ddd;
+}
+.numList li{
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  border: 1px solid #e5e5e5;
+  color: #707070;
+}
+.numList li:hover{
+  cursor: pointer;
+  background-color: #ddd;
+  color: #1a1a1a;
+}
+
+.list{
+  width: 800px;
+  margin: 10px auto;
+}
+.messageList li{
+  margin: 5px 0;
+}
+.current{
+  color: #fff !important;
+  background-color: #4fa3ea;  
+}
+.focused{
+  border-color: #73afea;
+  box-shadow: 0 0 4px rgba(115,180,234,0.4);
+}
+
+.table { 
+  width: 100%;  
+  max-width: 37%; 
+  margin: 10px 250px; 
+  background-color: transparent;
+  border-spacing: 0;  
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+
+.table td, .table th {
+  padding: 8px; 
+  line-height: 1.42857143;  
+  vertical-align: top; 
+  border: 1px solid #ddd; 
+  text-align: center 
+}
+.table th {
+  vertical-align: bottom;  
+  border-bottom: 2px solid #ddd; 
+  text-align: center
+}
+.disable {
+  color: #b5b5b5 !important;
+  cursor: not-allowed !important;
+}
+.disable:hover{
+  background-color: #f3f4f8;
+}
