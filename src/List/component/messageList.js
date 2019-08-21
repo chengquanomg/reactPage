@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 class MessageList extends Component{
   render() {
     const {message, pageSize, currentPage} = this.props;
-    console.log(message)
     return (
       <table border="0" cellPadding="0" cellSpacing="0" className="table">
         <thead>
