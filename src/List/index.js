@@ -58,7 +58,8 @@ class List extends Component{
   //无用户信息回到首页 及初始化数据
   componentDidMount() {
     if(!window.sessionStorage.username){
-      this.props.history.push('/')
+      this.props.history.push('/');
+      return;
     }
     
     let messages = [...this.state.messages];
