@@ -30,7 +30,7 @@ class PageNum extends Component{
 
         <ul className="numList">
           {this.props.pageNumList.map((num,index)=>{
-            return <li key={index} className={num === this.props.currentPage ? "current" : "default" } onClick={this.onPageNumClick.bind(this,num)}>{num}</li>
+            return <li key={index} className={num === this.props.currentPage ? "current" : null } onClick={this.onPageNumClick.bind(this,num)}>{num}</li>
           })}
         </ul>
 
