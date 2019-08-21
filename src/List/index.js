@@ -55,15 +55,12 @@ class List extends Component{
     })
   }
 
-  //无用户信息回到首页
+  //无用户信息回到首页 及初始化数据
   componentDidMount() {
     if(!window.sessionStorage.username){
       this.props.history.push('/')
     }
-  }
-
-  //初始化数据
-  UNSAFE_componentWillMount() {
+    
     let messages = [...this.state.messages];
     if(window.sessionStorage.class){
       let className = window.sessionStorage.class;
@@ -78,6 +75,7 @@ class List extends Component{
       message: messages,
     })
   }
+
 
   render(){
     var pageNumList = [];

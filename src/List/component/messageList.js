@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class MessageList extends Component{
   render() {
     const {message, pageSize, currentPage} = this.props;
+    console.log(message)
     return (
       <table border="0" cellPadding="0" cellSpacing="0" className="table">
         <thead>
@@ -13,7 +14,7 @@ class MessageList extends Component{
           </tr>
         </thead>
         <tbody>
-          {message.slice(pageSize*(currentPage-1), pageSize*currentPage).map((item,index)=>{
+          {message.length ? message.slice(pageSize*(currentPage-1), pageSize*currentPage).map((item,index)=>{
             return (
               <tr key={index}>
                 <td>{item.System}</td>
@@ -21,7 +22,7 @@ class MessageList extends Component{
                 <td>{item.Browser}</td>
               </tr>
             )
-          })}
+          }):null}
         </tbody>
       </table>
     )
