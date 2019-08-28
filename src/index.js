@@ -4,16 +4,27 @@ import './index.css';
 import Login from './Login/index';
 import Home from './Home/index'
 import List from './List/index'
-import { Router, Route } from 'react-router';
-import {createHashHistory} from 'history';
+import { Router, Route, Redirect, Switch } from 'react-router';
+// import { BrowserRouter } from 'react-router-dom';
+import {createBrowserHistory} from 'history';
 import * as serviceWorker from './serviceWorker';
 
-const browserHistory = createHashHistory()
+const browserHistory = createBrowserHistory()
+const loggedin = !!window.sessionStorage.username;
+// const pathname = window.location.pathname;
 ReactDOM.render(
-  <Router history={browserHistory}>
-    <Route exact path="/" component={Login}/>
-    <Route path="/home" component={Home}/>
-    <Route path="/list" component={List}/>
-  </Router>
+  (loggedin ?
+    <Router history={browserHistory}>
+      <Switch>
+        <Route exact path="/" component={Home}/>
+        <Route exact path="/list/*" component={List}/>
+        <Route path="/list" component={List}/>
+        <Redirect from="/*" to="/"></Redirect>
+      </Switch>
+    </Router>:
+    <Router history={browserHistory}>
+      <Route exact  path="/login" component={Login}/>
+      <Redirect to="/login" />
+    </Router>)
   , document.getElementById('root'));
 serviceWorker.unregister();

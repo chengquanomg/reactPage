@@ -4,21 +4,19 @@ import MessageList from './component/messageList'
 
 class TotalList extends Component {
   render() {
-    const {messages, message, pageSize, currentPage, pageNumList} = this.props;
+    const { query} = this.props;
     return (
       <div className="list">
           <MessageList 
-            message = {message}
-            pageSize = {pageSize}
-            currentPage = {currentPage}
+            query = {query}
+            onMessageChange = {this.props.onMessageChange}
+            onMessageRef = {this.props.onMessageRef}
           />
 
           <PageNum 
-            pageNumList = {pageNumList}
-            pageSize = {pageSize}
-            currentPage = {currentPage}
-            messages = {messages}
+            query = {query}
             onCurrentChange = {this.props.onCurrentChange}
+            onRef = {this.props.onRef}
           />
         </div>
     )

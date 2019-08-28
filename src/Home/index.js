@@ -1,123 +1,41 @@
-import React, { Component } from 'react';
-import '../font/font_list/iconfont.css';
-import '../font/font_aixin/iconfont.css';
-import '../font/font_dianzan/iconfont.css';
-import '../font/font_down/iconfont.css';
-import '../font/font_up/iconfont.css';
-import './index.css';
+import React, { Component, Fragment } from 'react';
+import {withRouter} from 'react-router-dom';
+import Drag from  './drag'
+import '../font/font_icon/iconfont.css';
+import '../Home/index.css';
 
 class Home extends Component{
-
-  //拖拽功能实现
-  onListClick(e){
-    //this.props.history.push('/list')
-    let _this = this;  //记录this 后面环境改变
-    let className = e.currentTarget.className; //list页面分割数据用
-    let drag = e.currentTarget; 
-    let dragStyle = window.getComputedStyle(drag, null)
-    let offsetX = parseInt(dragStyle.left); //获取图标当前的坐标
-    let offsetY = parseInt(dragStyle.top); //获取图标当前的坐标
-    let innerX = e.clientX - offsetX; //获取鼠标在图标内的坐标
-    let innerY = e.clientY - offsetY; //获取鼠标在图标内的坐标
-    let x=0,y=0;                    //x y记录偏移量
-    document.onmousemove = function(e) {
-      x = e.clientX - innerX;
-      y = e.clientY - innerY;
-      if (x === offsetX && y === offsetY){
-        x = 0;y = 0;
-        return;
-      }
-      drag.style.top = y + 'px';
-      drag.style.left = x + 'px';
-    }
-    document.onmouseup = function() {
-      document.onmousemove = null;
-      console.log()
-      if (x === 0 && y === 0){
-        window.sessionStorage.setItem("class",className)
-        _this.props.history.push('/list');
-        document.onmouseup = null;
-        return;
-      }
-      
-    }
-  }
-
 
   //登出功能
   onLogOut() {
     window.sessionStorage.clear()
-    this.props.history.push('/');
-  }
-
-  //显示菜单并改变图标
-  onDownClick(e) {
-    let down = e.currentTarget;
-    let icon = down.children[0];
-    document.getElementsByClassName("menu")[0].classList.toggle("show");
-    if (icon.className.includes("down")){
-      icon.className = "iconfont-up";
-      icon.innerHTML = "&#59538;";
-    }else {
-      icon.className = "iconfont-down";
-      icon.innerHTML = "&#59518;";
-    }
-  }
-
-  //窗口点击让菜单消失
-  show(e){
-    let menu = document.getElementsByClassName("menu")[0];
-    let down = document.getElementsByClassName("down")[0];
-    let icon = down.children[0];
-    if (e.target.className !== 'down' && !e.target.className.includes('icon')){
-      if (menu.className.includes("show")){
-        menu.classList.remove("show");
-        icon.className = "iconfont-down";
-        icon.innerHTML = "&#59518;";
-      }
-    }
-  }
-
-  //无用户信息回到首页
-  componentDidMount() {
-    if(!window.sessionStorage.username){
-      this.props.history.push('/');
-    }
-    window.addEventListener('click',this.show);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('click',this.show);
+    window.location.href = '/'
   }
   
 
   render(){
     return (
-      <div className="home">
-        
-        <div className="nav">
-          <div className="down" onClick={this.onDownClick.bind(this)}>
-            {/* up:&#59538; down:&#59518; */}
-            <span className="iconfont iconfont-down">&#59518;</span>
-          </div>
-          <div className="menu" style={{display:"none"}}>
-            <div className="logout" onClick={this.onLogOut.bind(this)}>登出</div>
-          </div>
+      <Fragment>
+        <header className="home_header">
+            <a href="/" className="home_logo">
+              <svg className="octicon" height="32" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true">
+                <path fillRule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+              </svg>
+            </a>
+            <div className="home_nav">
+              <a className="nav_a" href="/">Home</a>
+              <a className="nav_a" href="/list">List</a>
+            </div>
+            <div className="home_logout" onClick={this.onLogOut.bind(this)}>登出</div>
+          </header>
+        <div className="home">
+          <Drag  x={0} icon="&#xe644;" />
+          <Drag  x={300} icon="&#xe872;" />
+          <Drag  x={600} icon="&#xe873;" />
         </div>
-
-
-        <div className="icon-svg icon-list"  onMouseDown={this.onListClick.bind(this)}>
-          <span className="iconfont icon-list">&#59039;</span>
-        </div>
-        <div className="icon-svg icon-aixin" onMouseDown={this.onListClick.bind(this)}>
-          <span className="iconfont icon-aixin">&#59506;</span>
-        </div>
-        <div className="icon-svg icon-dianzan" onMouseDown={this.onListClick.bind(this)}>
-          <span className="iconfont icon-dianzan">&#59507;</span>
-        </div>
-      </div>
+      </Fragment>
     )
   }
 }
 
-export default Home;
+export default withRouter(Home);

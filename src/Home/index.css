@@ -1,8 +1,11 @@
 .home{
-  width: 800px;
-  height: 200px;
+  width: 100%;
+  height: 300px;
   /* position: relative; */
-  margin: 100px auto;
+  margin: 50px auto 0px;
+}
+.icon-icon{
+  font-size: 80px;
 }
 .icon-svg{
   position: absolute;
@@ -25,13 +28,13 @@
   cursor: pointer;
 }
 .icon-list{
-  left: 561px;
+  left: 461px;
 }
 .icon-aixin{
-  left: 861px;
+  left: 761px;
 }
 .icon-dianzan{
-  left: 1161px;
+  left: 1061px;
 }
 .back{
   width: 100px;
@@ -107,4 +110,54 @@
   to{
     opacity: 1;
   }
+}
+.home_header{
+  display: flex;
+  padding: 15px;
+  background: #24292e;
+}
+.home_logo {
+  width: 32px;
+  height: 32px;
+  /* background: url("../img/logo-02.png") no-repeat; */
+  background-size: 80px;
+  background-position: center;
+  margin-right: 30px;
+}
+.home_nav{
+  height: 30px;
+  width: 1700px;
+  line-height: 30px;
+  margin-right: 30px;
+}
+a{
+  text-decoration: none;
+}
+.home_logo{
+  color: #fff;
+}
+.nav_a{
+  font-weight: 600;
+  margin-right: 30px;
+  color: #fff;
+}
+.nav_a:hover{
+  color: hsla(0,0%,100%,.7);
+}
+.octicon{
+  display: inline-block;
+  fill: currentColor;
+  vertical-align:middle!important;
+}
+.home_logout{
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+}
+.home_logout:hover{
+  cursor: pointer;
+  color: hsla(0,0%,100%,.7);
 }

@@ -1,44 +1,96 @@
 import React, { Component } from 'react';
+import { withRouter, Link } from 'react-router-dom';
 
 class PageNum extends Component{
+    constructor(props){
+      super(props);
+      this.state = {
+        currentPage: 1,
+        pageNumList: [],
+        pageNum: 0,
+      }
+    }
+
+    componentDidMount(){
+      this.props.onRef(this);
+    }
+
+    onCurrentPageChange(currentPage) {
+      this.setState({
+        currentPage,
+      })
+    }
+
+    onPageNumChange(pageNum) {
+      let pageNumList = [];
+      for (let i = 0; i < pageNum; i++){
+        pageNumList.push(i+1);
+      }
+      this.setState({
+        pageNum,
+        pageNumList
+      })
+    }
+
     //上一页
-    onLastPageClick(){
-      const currentPage = this.props.currentPage===1 ? this.props.currentPage : this.props.currentPage - 1;
+    onLastPageClick(e){
+      let currentPage = this.state.currentPage;
+      if(currentPage<=1) {
+        e.preventDefault();
+        return;
+      }
+      currentPage = currentPage - 1;
       this.props.onCurrentChange(currentPage);
+      this.setState({
+        currentPage,
+      })
     }
   
     //下一页
-    onNextPageClick() {
-      const {pageSize, messages} = this.props;
-      const currentPage = this.props.currentPage===Math.ceil(messages.length/pageSize) ? this.props.currentPage : this.props.currentPage + 1;
+    onNextPageClick(e) {
+      let {pageNum, currentPage} = this.state;
+      if(currentPage>=pageNum) {
+        e.preventDefault();
+        return;
+      }
+      currentPage = currentPage + 1;
       this.props.onCurrentChange(currentPage);
+      this.setState({
+        currentPage,
+      })
     }
 
     //切换数据分页
     onPageNumClick(num){
       this.props.onCurrentChange(num);
+      this.setState({
+        currentPage: num,
+      })
     }
 
   render() {
-    const length = this.props.pageNumList.length;
+    const {currentPage, pageNumList} = this.state;
+    const { query} = this.props;
+    const length = pageNumList.length;
     return (
-      <div className="pageNum" style={{paddingLeft:(221 - length*17)}}>
-
-        <div className={this.props.currentPage===1 ? "lastPage disable":"lastPage"} onClick={this.onLastPageClick.bind(this)}>
-          <span className="iconfont-last">&#59031;</span>
-        </div>
+      length?(
+        <div className="pageNum" style={{paddingLeft:(221 - length*17)}}>
+        <Link to={currentPage<=1 ? ``:`/list?q=${query}&p=${currentPage-1}`} className={currentPage<=1 ? "lastPage disable":"lastPage"} onClick={this.onLastPageClick.bind(this)}>
+          <span className="iconfont iconfont-last">&#xeb8e;</span>
+        </Link>
 
         <ul className="numList">
-          {this.props.pageNumList.map((num,index)=>{
-            return <li key={index} className={num === this.props.currentPage ? "current" : null } onClick={this.onPageNumClick.bind(this,num)}>{num}</li>
+          {pageNumList.map((num,index)=>{
+            return <Link to={`/list?q=${query}&p=${num}`} onClick={this.onPageNumClick.bind(this,num)} key={index} className={num === currentPage ? "current num" : "num"}>{num}</Link>
           })}
         </ul>
 
-        <div className={this.props.currentPage === length ? "nextPage disable":"nextPage"} onClick={this.onNextPageClick.bind(this)}>
-          <span className="iconfont-next">&#59047;</span>
-        </div>
+        <Link to={currentPage>=length ? ``:`/list?q=${query}&p=${currentPage+1}`} className={currentPage >= length ? "nextPage disable":"nextPage"} onClick={this.onNextPageClick.bind(this)}>
+          <span className="iconfont iconfont-next">&#xeb8a;</span>
+        </Link>
       </div>
+      ):null
     )
   }
 }
-export default PageNum;
+export default withRouter(PageNum);
