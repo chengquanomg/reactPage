@@ -72,6 +72,25 @@ class PageNum extends Component{
     const {currentPage, pageNumList} = this.state;
     const { query} = this.props;
     const length = pageNumList.length;
+
+    let pageArr = [];
+    let max = 10;
+    if(length <= max){
+      pageArr = pageNumList;
+    }else{
+      if(currentPage < 5){
+        pageArr = [...pageNumList.slice(0,5),'...',length];
+      }else{
+        if(currentPage <= length-4){
+          pageArr = [1,'...',...pageNumList.slice(currentPage-2,currentPage+1),'...',length]
+        }else{
+          pageArr = [1,'...',...pageNumList.slice(length-5,length)]
+        }
+      }
+    }
+
+
+
     return (
       length?(
         <div className="pageNum" style={{paddingLeft:(221 - length*17)}}>
@@ -80,7 +99,7 @@ class PageNum extends Component{
         </Link>
 
         <ul className="numList">
-          {pageNumList.map((num,index)=>{
+          {pageArr.map((num,index)=>{
             return <Link to={`/list?q=${query}&p=${num}`} onClick={this.onPageNumClick.bind(this,num)} key={index} className={num === currentPage ? "current num" : "num"}>{num}</Link>
           })}
         </ul>

@@ -9,7 +9,7 @@ class List extends Component{
     super(props);
     this.state = {
       message : [],
-      pageSize : 4,
+      pageSize : 1,
       currentPage: 1,
       query: '',
     };
